@@ -1,0 +1,56 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CentralMenuCard from '../../components/CentralMenuCard.astro'
+import {allPlaylists, songs} from '../../lib/data'
+
+
+
+const {id} = Astro.params
+
+const playlist = allPlaylists. find((playlist) => playlist.id ===id)
+const playlistSongs = songs.filter((song) => song.albumId === playlist?.albumId)
+
+---
+
+<Layout title="Clon de SPOTIFY">
+    <div 
+        id="playlist-container"
+        class="relative flex flex-col h-full gap-5 overflow-x-hidden bg-zinc-80 p-5"
+        transition:name=`playlist ${id} box`
+    >
+
+    <header class="flex flex-col ">
+        <picture class="aspect-square w-52 h-52 flex-none">
+            <img 
+            src={playlist?.cover} 
+            alt={`Cover of ${playlist?.title}`}
+            class="object-cover w-full h-full rounded-md"
+            transition:name=`playlist ${playlist?.id} image`
+            >
+            
+        </picture>
+    </header>
+
+    <div class=" flex flex-row  z-10 p-4 gap-4 rounded-lg">
+     
+    </div>
+    
+    <div class="relative z-10 gap-5 px-6 p-4">
+
+       
+    </div>
+    <main class="px-5 flex flex-wrap gap-10 p-4">
+        {
+               
+        }
+    </main>
+  
+
+    </div>
+
+  
+    
+
+</Layout>    
+<style>
+</style>
