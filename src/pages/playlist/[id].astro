@@ -1,56 +1,116 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import CentralMenuCard from '../../components/CentralMenuCard.astro'
-import {allPlaylists, songs} from '../../lib/data'
+import Layout from "../../layouts/Layout.astro";
+import CentralMenuCard from "../../components/CentralMenuCard.astro";
+import { allPlaylists, songs } from "../../lib/data";
+import NavigationLeft from "@/icons/NavigationLeft.astro";
+import ButtonNav from "../../components/ButtonNav.astro";
 
+const { id } = Astro.params;
 
-
-const {id} = Astro.params
-
-const playlist = allPlaylists. find((playlist) => playlist.id ===id)
-const playlistSongs = songs.filter((song) => song.albumId === playlist?.albumId)
+const playlist = allPlaylists.find((playlist) => playlist.id === id);
+const playlistSongs = songs.filter(
+  (song) => song.albumId === playlist?.albumId
+);
+const artistString = playlist?.artists.join(", ")
+console.log(songs)
 
 ---
 
 <Layout title="Clon de SPOTIFY">
-    <div 
-        id="playlist-container"
-        class="relative flex flex-col h-full gap-5 overflow-x-hidden bg-zinc-80 p-5"
-        transition:name=`playlist ${id} box`
-    >
-
-    <header class="flex flex-col ">
+  <div style={`background-color: ${playlist?.color.accent};`} 
+      class="">
+    <div class="flex flex-row z-10 p-4 gap-4 rounded-lg">
+      <ButtonNav href="/">
+        <NavigationLeft />
+      </ButtonNav>
+      
+    </div>
+    <div
+      id="playlist-container"
+      class="relative flex flex-row h-full gap-5 overflow-x-hidden bg-zinc-80 p-5"
+      transition:name=`playlist ${id} box`>
+      <header class="flex flex-col">
         <picture class="aspect-square w-52 h-52 flex-none">
-            <img 
-            src={playlist?.cover} 
+          <img
+            src={playlist?.cover}
             alt={`Cover of ${playlist?.title}`}
             class="object-cover w-full h-full rounded-md"
             transition:name=`playlist ${playlist?.id} image`
-            >
-            
+          />
         </picture>
-    </header>
+      </header>
 
-    <div class=" flex flex-row  z-10 p-4 gap-4 rounded-lg">
-     
+      <div
+        class="flex flex-col px-5 justify-center text-z-10 h-52  gap-4 rounded-lg"
+        transition:name=`playlist ${playlist?.title} title`>
+        <h3 class="px-2">Playlist</h3>
+        <h2 class="text-white text-7xl font-bold hover:text-white-400 items-center">
+          {playlist?.title}
+        </h2>
+        <h3 class="px-2">
+          {artistString}
+        </h3>
+        <h3 class="px-2">
+          About {
+            playlistSongs.reduce(
+              (totalDuration, song) =>
+                totalDuration + parseInt(song.duration, 10),
+              0
+            )
+          } minutes
+        </h3>
+      </div>
     </div>
+  </div>
+  <div>
+    <style>
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    .table th, .table td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+    .table th {
+      background-color: #f2f2f2;
+    }
+  </style>
+
+  <header class="text-white gap-5 flex flex-col">
+    <div class="table">
+      <div class="table-row gap-0">
+        <div class="table-cell">ID</div>
+        <div class="table-cell w-11"></div>
+        <div class="table-cell">Título</div>
+        <div class="table-cell">Álbum</div>
+        <div class="table-cell">Artistas</div>
+        <div class="table-cell">Duración</div>
+      </div>
+      {
+        playlistSongs.map((song, index) => (
+          <div class="table-row">
+            <div class="table-cell">{song.id}</div>
+            <picture class="aspect-square h-10 ">
+              <img
+                src={playlist?.cover}
+                alt={`Cover of ${playlist?.title}`}
+                class="object-cover w-10 h-10 rounded-md"
+              />
+            </picture>
+            <div class="table-cell">{song.title}</div>
+            <div class="table-cell">{song.album}</div>
+            <div class="table-cell">{song.artists}</div>
+            <div class="table-cell">{song.duration}</div>
+          </div>
+        ))
+      }
+    </div>
+  </header>
     
-    <div class="relative z-10 gap-5 px-6 p-4">
 
-       
-    </div>
-    <main class="px-5 flex flex-wrap gap-10 p-4">
-        {
-               
-        }
-    </main>
-  
-
-    </div>
-
-  
-    
-
-</Layout>    
-<style>
-</style>
+  </div>
+</Layout>
+<style></style>

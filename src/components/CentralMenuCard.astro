@@ -1,43 +1,36 @@
 ---
-import type {Playlist} from '@/lib/data'
+import type { Playlist } from "@/lib/data";
 
 interface Props {
-    playlist: Playlist
+  playlist: Playlist;
 }
 
-const {playlist} = Astro.props
-const{id, cover, title, artists, color } = playlist
+const { playlist } = Astro.props;
+const { id, cover, title, artists, color } = playlist;
 
-const artistString = artists.join('\n')
-
-
-
-
+const artistString = artists.join(", ");
 ---
+
 <a
-href={`/playlist/${id}`}
-class="playlist-item flex flex-col rounded-md  shadow-lg w-44 transition-all duration-300 relative overflow-hidden gap-2 hover:bg-zinc-700 p-2 pb-6 hover:shadow-xl bg-zinc-800   "
-transition:name=`playlist ${id} box`
->
-    <picture class="aspect-square w-full h-auto flex-none">
-        <img 
-        src={cover}
-        alt={`Cover of ${title} by ${artistString}`}
-        class="object-cover w-full h-full rounded-md" 
-        transition:name=`playlist ${id} image`
-        />
-    </picture>
-    <div class="flex flex-auto flex-col truncate">
-        <h4 class="text-white">
-            {title}
-
-        </h4>
-        <span class=" flex flex-col text-zinc-400">
-            {
-                artistString
-            }
-        </span>
-
-    </div>
-
+  href={`/playlist/${id}`}
+  class="playlist-item flex flex-col rounded-md shadow-lg w-44 transition-all duration-300 relative overflow-hidden gap-2 hover:bg-zinc-700 p-2 pb-6 hover:shadow-xl bg-zinc-800"
+  transition:name=`playlist ${id} box`>
+  <picture class="aspect-square w-full h-auto flex-none">
+    <img
+      src={cover}
+      alt={`Cover of ${title} by ${artistString}`}
+      class="object-cover w-full h-full rounded-md"
+      transition:name=`playlist ${id} image`
+    />
+  </picture>
+  <div
+    class="flex flex-auto flex-col truncate"
+    transition:name=`playlist ${playlist?.title} title`>
+    <h4 class="text-white">
+      {title}
+    </h4>
+    <span class="flex flex-col text-zinc-400">
+      {artistString}
+    </span>
+  </div>
 </a>

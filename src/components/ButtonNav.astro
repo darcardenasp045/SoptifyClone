@@ -1,6 +1,13 @@
 ---
+interface props {
+  href?: string;
+}
+const { href } = Astro.props;
 ---
 
-<button class="w-8 h-8 rounded-3xl bg-zinc-700 hover:bg-zinc-400 flex items-center ">
-    <slot/>
-</button>
+<a
+
+  href={href}
+  class="w-10 inline-flex h-10 rounded-full justify-center bg-zinc-900 hover:bg-zinc-400 items-center">
+  <slot />
+</a>

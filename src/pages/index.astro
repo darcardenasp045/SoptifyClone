@@ -1,45 +1,23 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import CentralMenuCard from '../components/CentralMenuCard.astro'
-import { playlists } from '@/lib/data';
-import NavigationLeft from '@/icons/NavigationLeft.astro';
-import NavigationRigth from '@/icons/NavigationRigth.astro'
-import ButtonNav from '../components/ButtonNav.astro'
+import Layout from "../layouts/Layout.astro";
+import CentralMenuCard from "../components/CentralMenuCard.astro";
+import { playlists } from "@/lib/data";
+import NavigationLeft from "@/icons/NavigationLeft.astro";
+import ButtonNav from "../components/ButtonNav.astro";
 ---
 
 <Layout title="Clon de SPOTIFY">
-    <div 
+  <div
     id="playlist-container"
     class="relative flex flex-col gap-5 transition-all duration-1000 bg-zinc-80 p-5">
+  
 
-    <div class=" flex flex-row  z-10 p-4 gap-4 rounded-lg">
-        <ButtonNav>
-            <NavigationLeft/>
-
-        </ButtonNav>
-        <ButtonNav>
-              <NavigationRigth/>
-        </ButtonNav>
-
-    </div>
-    
     <div class="relative z-10 gap-5 px-6 p-4">
-
-        <h1 class="text-4xl">Buenos dias</h1>
-       
+      <h1 class="text-4xl">Buenos dias</h1>
     </div>
     <main class="px-5 flex flex-wrap gap-10 p-4">
-        {
-            playlists.map(playlist =><CentralMenuCard playlist = {playlist} />)
-        }
+      {playlists.map((playlist) => <CentralMenuCard playlist={playlist} />)}
     </main>
-  
-
-    </div>
-
-  
-    
-
-</Layout>    
-<style>
-</style>
+  </div>
+</Layout>
+<style></style>
