@@ -11,20 +11,18 @@ const playlist = allPlaylists.find((playlist) => playlist.id === id);
 const playlistSongs = songs.filter(
   (song) => song.albumId === playlist?.albumId
 );
-const artistString = playlist?.artists.join(", ")
-console.log(songs)
-
+const artistString = playlist?.artists.join(", ");
 ---
 
 <Layout title="Clon de SPOTIFY">
-  <div style={`background: rgb(50, 49, 72);
-    background: linear-gradient(180deg, rgba(50, 49, 72, 0.8583035509125525) 0%, ${playlist?.color?.accent} 68%);` } 
-      class="">
+  <div
+    style={`background: rgb(50, 49, 72);
+    background: linear-gradient(180deg, rgba(50, 49, 72, 0.8583035509125525) 0%, ${playlist?.color?.accent} 68%);`}
+    class="">
     <div class="flex flex-row z-10 p-4 gap-4 rounded-lg">
       <ButtonNav href="/">
         <NavigationLeft />
       </ButtonNav>
-      
     </div>
     <div
       id="playlist-container"
@@ -42,10 +40,11 @@ console.log(songs)
       </header>
 
       <div
-        class="flex flex-col px-5 justify-center text-z-10 h-52  gap-4 rounded-lg"
+        class="flex flex-col px-5 justify-center text-z-10 h-52 gap-4 rounded-lg"
         transition:name=`playlist ${playlist?.title} title`>
         <h3 class="px-2">Playlist</h3>
-        <h2 class="text-white text-7xl font-bold hover:text-white-400 items-center">
+        <h2
+          class="text-white text-7xl font-bold hover:text-white-400 items-center">
           {playlist?.title}
         </h2>
         <h3 class="px-2">
@@ -63,55 +62,45 @@ console.log(songs)
       </div>
     </div>
   </div>
-  <div>
-    <style>
-    .table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-    .table th, .table td {
-      border: 1px solid #ccc;
-      padding: 10px;
-      text-align: left;
-    }
-    .table th {
-      background-color: #f2f2f2;
-    }
-  </style>
+  <div class="h-full">
+    <main
+      style={`background: rgb(50, 49, 72);
+      background: linear-gradient(180deg, rgba(100, 100,0 , 1) 10%, ${playlist?.color?.accent} 100%);`}
+      
+      class="text-white font-light text-lg gap-5 p-10 flex flex-col h-full">
+      <div class="table p-20">
+        <div class="table-row gap-0 border-b h-10 border-gray-400">
+          <div class="table-cell">ID</div>
+          <div class="table-cell">Título</div>
+          <div class="table-cell">Álbum</div>
+          <div class="table-cell">Artistas</div>
+          <div class="table-cell">Duración</div>
+        </div>
+        {
+          playlistSongs.map((song) => (
+            <div class="table-row hover:bg-gray-500/20 gap-10 h-full  duration-100 transition-all">
+              <div class="table-cell  flex-row">{song.id}</div>
+              <picture class="aspect-square h-12 w-full gap-2 flex flex-row items-end hover:underline hover:cursor-pointer">
+                <img
+                  src={playlist?.cover}
+                  alt={`Cover of ${playlist?.title}`}
+                  class="object-cover w-10 h-10 rounded-md"
+                />
+                {song.title}
+              </picture>
 
-  <header class="text-white gap-5 flex flex-col">
-    <div class="table">
-      <div class="table-row gap-0">
-        <div class="table-cell">ID</div>
-        <div class="table-cell w-11"></div>
-        <div class="table-cell">Título</div>
-        <div class="table-cell">Álbum</div>
-        <div class="table-cell">Artistas</div>
-        <div class="table-cell">Duración</div>
+              <div class="table-cell hover:underline hover:cursor-pointer h-50">
+                {song.album}
+              </div>
+              <div class="table-cell hover:underline hover:cursor-pointer">
+                {song.artists}
+              </div>
+              <div class="table-cell">{song.duration}</div>
+            </div>
+          ))
+        }
       </div>
-      {
-        playlistSongs.map((song, index) => (
-          <div class="table-row">
-            <div class="table-cell">{song.id}</div>
-            <picture class="aspect-square h-10 ">
-              <img
-                src={playlist?.cover}
-                alt={`Cover of ${playlist?.title}`}
-                class="object-cover w-10 h-10 rounded-md"
-              />
-            </picture>
-            <div class="table-cell">{song.title}</div>
-            <div class="table-cell">{song.album}</div>
-            <div class="table-cell">{song.artists}</div>
-            <div class="table-cell">{song.duration}</div>
-          </div>
-        ))
-      }
-    </div>
-  </header>
-    
-
+    </main>
   </div>
 </Layout>
 <style></style>
